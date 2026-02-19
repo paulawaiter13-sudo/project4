@@ -1,17 +1,15 @@
 <?php
-// php/db.php
-declare(strict_types=1);
-require_once __DIR__ . '/config.php';
+// includes/db.php
+$host = "3306";
+$user = "paulawais_em";
+$pass = "nqD0zJTvn8wR";
+$db   = "paulawais_examix";
 
-function db(): PDO {
-  static $pdo = null;
-  if ($pdo) return $pdo;
+$conn = new mysqli($host, $user, $pass, $db);
 
-  $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
-  $pdo = new PDO($dsn, DB_USER, DB_PASS, [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-  ]);
-
-  return $pdo;
+if ($conn->connect_error) {
+  die("DB connection failed: " . $conn->connect_error);
 }
+
+$conn->set_charset("utf8mb4");
+?>
